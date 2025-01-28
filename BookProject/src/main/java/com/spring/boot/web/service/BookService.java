@@ -73,6 +73,7 @@ public class BookService {
 
 		    return bookToRemove;
 	}
+		//update books
 		public void updateBook(Books book,int id) {
 		list.stream().map(b->{
 			if (b.getBookId()==id) {
