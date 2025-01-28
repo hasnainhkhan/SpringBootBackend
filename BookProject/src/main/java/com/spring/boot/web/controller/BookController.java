@@ -60,6 +60,7 @@ public class BookController {
 		Books b = this.bookService.deleteBookById(id);
 		return b;
 	}
+	//update api
 	@PutMapping("/allbooks/{id}")
 	public Books updateBook(@RequestBody Books book,@PathVariable("id") int id) {
 		this.bookService.updateBook(book,id);
