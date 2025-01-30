@@ -16,8 +16,6 @@ import java.util.Optional;
 import com.spring.boot.web.Entities.Books;
 import com.spring.boot.web.service.BookService;
 
-import lombok.Delegate;
-
 @RestController
 public class BookController {
 
@@ -45,14 +43,21 @@ public class BookController {
 	}
 
 	@GetMapping("/allbooks/authors/{author}")
-	public Books getBookByAuthor(@PathVariable("author") String author) {
-		return bookService.getBookByAuthor(author);
+	public ResponseEntity<Books> getBookByAuthor(@PathVariable("author") String author) {
+		Books book = bookService.getBookByAuthor(author);
+		if (book == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		return ResponseEntity.of(Optional.of(book));
 	}
 
 	@GetMapping("/allbooks/title/{title}")
-	public Books getBooksByTitle(@PathVariable("title") String title) {
+	public ResponseEntity<Books> getBooksByTitle(@PathVariable("title") String title) {
 		Books book = bookService.getBooksByTitle(title);
-		return book;
+		if(book == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		return ResponseEntity.of(Optional.of(book));
 	}
 
 	@PostMapping("/books")
@@ -67,22 +72,37 @@ public class BookController {
 		}
 	}
 
-	@DeleteMapping("/books/del")
-	public Books deleteBook(@RequestBody Books book) {
-		Books b = this.bookService.deleteBook(book);
-		return b;
+	@DeleteMapping("/allbooks/del")
+	public ResponseEntity<Void> deleteBook(@RequestBody Books book) {
+		try {
+			this.bookService.deleteBook(book);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
-	@DeleteMapping("/books/del/{id}")
-	public Books deleteBookByID(@PathVariable("id") int id) {
-		Books b = this.bookService.deleteBookById(id);
-		return b;
+	@DeleteMapping("/allbooks/{id}")
+	public ResponseEntity<Void> deleteBookByID(@PathVariable("id") int id) {
+		try {
+			this.bookService.deleteBookById(id);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@PutMapping("/allbooks/{id}")
-	public Books updateBook(@RequestBody Books book, @PathVariable("id") int id) {
-		this.bookService.updateBook(book, id);
-		return book;
+	public ResponseEntity<Void> updateBook(@RequestBody Books book, @PathVariable("id") int id) {
+		try {
+			this.bookService.updateBook(book, id);
+			return ResponseEntity.status(HttpStatus.OK).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 }
