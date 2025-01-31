@@ -32,33 +32,33 @@ public class BookController {
 		return ResponseEntity.of(Optional.of(list));
 	}
 
-	@GetMapping("/allbooks/{id}")
-	public ResponseEntity<Books> getSingleBook(@PathVariable("id") int id) {
-		Books book = bookService.getBooksById(id);
-		if (book == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-		return ResponseEntity.of(Optional.of(book));
+//	@GetMapping("/allbooks/{id}")
+//	public ResponseEntity<Books> getSingleBook(@PathVariable("id") int id) {
+//		Books book = bookService.getBooksById(id);
+//		if (book == null) {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//		}
+//		return ResponseEntity.of(Optional.of(book));
+//
+//	}
 
-	}
+//	@GetMapping("/allbooks/authors/{author}")
+//	public ResponseEntity<Books> getBookByAuthor(@PathVariable("author") String author) {
+//		Books book = bookService.getBookByAuthor(author);
+//		if (book == null) {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//		}
+//		return ResponseEntity.of(Optional.of(book));
+//	}
 
-	@GetMapping("/allbooks/authors/{author}")
-	public ResponseEntity<Books> getBookByAuthor(@PathVariable("author") String author) {
-		Books book = bookService.getBookByAuthor(author);
-		if (book == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-		return ResponseEntity.of(Optional.of(book));
-	}
-
-	@GetMapping("/allbooks/title/{title}")
-	public ResponseEntity<Books> getBooksByTitle(@PathVariable("title") String title) {
-		Books book = bookService.getBooksByTitle(title);
-		if(book == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-		return ResponseEntity.of(Optional.of(book));
-	}
+//	@GetMapping("/allbooks/title/{title}")
+//	public ResponseEntity<Books> getBooksByTitle(@PathVariable("title") String title) {
+//		Books book = bookService.getBooksByTitle(title);
+//		if(book == null) {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//		}
+//		return ResponseEntity.of(Optional.of(book));
+//	}
 
 	@PostMapping("/books")
 	public ResponseEntity<Books> addBook(@RequestBody Books book) {
@@ -97,7 +97,7 @@ public class BookController {
 	@PutMapping("/allbooks/{id}")
 	public ResponseEntity<Void> updateBook(@RequestBody Books book, @PathVariable("id") int id) {
 		try {
-			this.bookService.updateBook(book, id);
+			this.bookService.updateBook(book,id);
 			return ResponseEntity.status(HttpStatus.OK).build();
 		} catch (Exception e) {
 			e.printStackTrace();
