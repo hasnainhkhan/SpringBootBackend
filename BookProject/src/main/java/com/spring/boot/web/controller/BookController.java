@@ -60,7 +60,7 @@ public class BookController {
 //		return ResponseEntity.of(Optional.of(book));
 //	}
 
-	@PostMapping("/books")
+	@PostMapping("/allbooks")
 	public ResponseEntity<Books> addBook(@RequestBody Books book) {
 		Books b = null;
 		try {
@@ -72,7 +72,7 @@ public class BookController {
 		}
 	}
 
-	@DeleteMapping("/allbooks/del")
+	@DeleteMapping("/allbooks/")
 	public ResponseEntity<Void> deleteBook(@RequestBody Books book) {
 		try {
 			this.bookService.deleteBook(book);

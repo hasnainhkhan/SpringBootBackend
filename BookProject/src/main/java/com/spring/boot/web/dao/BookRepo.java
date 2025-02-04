@@ -10,8 +10,8 @@ import jakarta.transaction.Transactional;
 
 public interface BookRepo extends CrudRepository<Books, Integer> {
     
-    @Modifying
-    @Transactional
+//    @Modifying
+//    @Transactional
     @Query("DELETE FROM Books b WHERE b.bookId = :id")
     void deleteByBookId(int id);
 }
