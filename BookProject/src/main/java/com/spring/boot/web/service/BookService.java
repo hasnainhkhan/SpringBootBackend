@@ -123,15 +123,17 @@ public class BookService {
     @Transactional
     public Books addBook(Books book) {
         // Get the Author from the Book object (check if it exists)
-        Author author = book.getAuthor();
-
-        // If the Author is not managed (detached), merge it to reattach
-        if (author != null && author.getA_id() != null) {
-            author = entityManager.merge(author); // Ensure the author is managed by the current session
-        }
-
-        // Set the author on the book object (this will also link the entities)
-        book.setAuthor(author);
+//        Author author = book.getAuthor();
+//
+//        // If the Author is not managed (detached), merge it to reattach
+//        if (author != null && author.getA_id() != null) {
+//            author = entityManager.merge(author); // Ensure the author is managed by the current session
+//        }
+//
+//        // Set the author on the book object (this will also link the entities)
+//        book.setAuthor(author);
+	 Books managedBook = entityManager.merge(book);
+	 entityManager.persist(managedBook);
 
         // Save the book object (with associated author)
         return bookRepo.save(book);

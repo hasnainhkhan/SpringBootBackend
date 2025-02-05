@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 
 @Entity
@@ -22,8 +23,22 @@ public class Books {
     @OneToOne(cascade = CascadeType.ALL)
     private Author author;
     
+    @Version  // Hibernate will check version before updating
+    private Integer version;
+    
+    
+
+
 //    @jakarta.persistence.Version
 //    private Integer version; 
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public int getBookId() {
         return bookId;
@@ -49,11 +64,14 @@ public class Books {
         this.author = author;
     }
 
-    public Books(int bookId, String bookTitle, Author author) {
+ 
+
+    public Books(int bookId, String bookTitle, Author author, Integer version) {
 	super();
 	this.bookId = bookId;
 	this.bookTitle = bookTitle;
 	this.author = author;
+	this.version = version;
     }
 
     public Books() {
