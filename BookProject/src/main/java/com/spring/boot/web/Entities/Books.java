@@ -1,6 +1,8 @@
 package com.spring.boot.web.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class Books {
     private String bookTitle;
     
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Author author;
     
     @Version  // Hibernate will check version before updating
