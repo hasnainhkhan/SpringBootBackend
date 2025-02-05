@@ -1,108 +1,81 @@
 package com.spring.boot.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
-import java.util.Optional;
-
+import org.springframework.web.bind.annotation.*;
 import com.spring.boot.web.Entities.Books;
 import com.spring.boot.web.service.BookService;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
+@RequestMapping("/allbooks")  // Optional: Base URL for all book-related endpoints
 public class BookController {
 
-	@Autowired
-	private BookService bookService;
+    @Autowired
+    private BookService bookService;
 
-	@GetMapping("/allbooks")
-	public ResponseEntity<List<Books>> getBooks() {
+    @GetMapping
+    public ResponseEntity<List<Books>> getBooks() {
+        List<Books> list = bookService.getAllBooks();
+        if (list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(list);  // Simplified: no need for Optional
+    }
 
-		List<Books> list = bookService.getAllBooks();
-		if (list.size() <= 0) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-		return ResponseEntity.of(Optional.of(list));
-	}
+    @PostMapping
+    public ResponseEntity<Books> addBook(@RequestBody Books book) {
+        try {
+            Books addedBook = this.bookService.addBook(book);
+            return ResponseEntity.status(HttpStatus.CREATED).body(addedBook);  // Created status for successful creation
+        } catch (OptimisticLockingFailureException e) {
+            // Return response with Conflict status and error message in a response body
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(null);  // ResponseEntity for error with no body (or you can add error message inside a custom object)
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
-//	@GetMapping("/allbooks/{id}")
-//	public ResponseEntity<Books> getSingleBook(@PathVariable("id") int id) {
-//		Books book = bookService.getBooksById(id);
-//		if (book == null) {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//		}
-//		return ResponseEntity.of(Optional.of(book));
-//
-//	}
+    @DeleteMapping
+    public ResponseEntity<Void> deleteBook(@RequestBody Books book) {
+        try {
+            this.bookService.deleteBook(book);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();  // Proper 204 for successful deletion
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
-//	@GetMapping("/allbooks/authors/{author}")
-//	public ResponseEntity<Books> getBookByAuthor(@PathVariable("author") String author) {
-//		Books book = bookService.getBookByAuthor(author);
-//		if (book == null) {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//		}
-//		return ResponseEntity.of(Optional.of(book));
-//	}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBookById(@PathVariable("id") int id) {
+        try {
+            this.bookService.deleteBookById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
-//	@GetMapping("/allbooks/title/{title}")
-//	public ResponseEntity<Books> getBooksByTitle(@PathVariable("title") String title) {
-//		Books book = bookService.getBooksByTitle(title);
-//		if(book == null) {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//		}
-//		return ResponseEntity.of(Optional.of(book));
-//	}
-
-	@PostMapping("/allbooks")
-	public ResponseEntity<Books> addBook(@RequestBody Books book) {
-		Books b = null;
-		try {
-			b = this.bookService.addBook(book);
-			return ResponseEntity.of(Optional.of(book));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-
-	@DeleteMapping("/allbooks/")
-	public ResponseEntity<Void> deleteBook(@RequestBody Books book) {
-		try {
-			this.bookService.deleteBook(book);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-
-	@DeleteMapping("/allbooks/{id}")
-	public ResponseEntity<Void> deleteBookByID(@PathVariable("id") int id) {
-		try {
-			this.bookService.deleteBookById(id);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-
-	@PutMapping("/allbooks/{id}")
-	public ResponseEntity<Void> updateBook(@RequestBody Books book, @PathVariable("id") int id) {
-		try {
-			this.bookService.updateBook(book,id);
-			return ResponseEntity.status(HttpStatus.OK).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateBook(@RequestBody Books book, @PathVariable("id") int id) {
+        try {
+            this.bookService.updateBook(book, id);
+            return ResponseEntity.status(HttpStatus.OK).build();  // 200 OK for successful update
+        } catch (OptimisticLockingFailureException e) {
+            // Handle optimistic locking failure and return a Conflict response
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(null);  // Or you can return a custom error object
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
