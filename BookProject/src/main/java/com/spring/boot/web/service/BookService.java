@@ -60,5 +60,6 @@ public class BookService {
     // Method to delete a book by ID
     public void deleteBookById(int id) {
         bookRepo.deleteById(id);
+        log.info("hello");
     }
 }
