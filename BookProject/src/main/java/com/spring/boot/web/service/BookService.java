@@ -3,19 +3,18 @@ package com.spring.boot.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.spring.boot.web.Entities.Books;
 import com.spring.boot.web.dao.BookRepo;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
 @Service
 public class BookService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Autowired
     private BookRepo bookRepo;
@@ -24,7 +23,7 @@ public class BookService {
     @Transactional
     public Books addBook(Books book) {
         // Merging the book with the session (automatically handles the version field)
-        Books managedBook = entityManager.merge(book);
+        Books managedBook =bookRepo.save(book);
         // Save the book with the updated version
         return bookRepo.save(managedBook);
     }
@@ -60,6 +59,5 @@ public class BookService {
     // Method to delete a book by ID
     public void deleteBookById(int id) {
         bookRepo.deleteById(id);
-        log.info("hello");
     }
 }

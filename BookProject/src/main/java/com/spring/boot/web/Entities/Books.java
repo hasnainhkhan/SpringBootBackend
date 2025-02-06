@@ -1,6 +1,5 @@
 package com.spring.boot.web.Entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,11 +20,7 @@ public class Books {
 
     private String bookTitle;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Author author;
+   
+    private String author;
 
-    @Column(name = "OPTLOCK")
-    @Version // Hibernate will check version before updating
-    private Integer version;
 }
