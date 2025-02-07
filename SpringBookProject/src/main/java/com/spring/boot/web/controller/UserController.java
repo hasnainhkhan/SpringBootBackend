@@ -2,19 +2,18 @@ package com.spring.boot.web.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.spring.boot.web.dao.UserEntity;
 import com.spring.boot.web.services.UserService;
 
-import jakarta.websocket.server.PathParam;
 
 @RestController
 public class UserController {
@@ -23,27 +22,43 @@ public class UserController {
     private UserService userService;
     	
        @PostMapping("/user")	
-       public UserEntity SignUp(@RequestBody UserEntity userEntity) {
-	   return userService.createUser(userEntity);
-	    
-       }
+       public ResponseEntity<UserEntity>SignUp(@RequestBody UserEntity userEntity) {
+	      try{
+		  UserEntity data =  userService.createUser(userEntity);
+		  return ResponseEntity.status(HttpStatus.CREATED).body(data);
+		  } catch(Exception e) {
+		      e.printStackTrace();
+		      return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		  }
+	  }
+	  
+	   
        
        @GetMapping("/users")
-       public List<UserEntity> getAllData(){
-	   
-	   List<UserEntity> list = userService.getAllUser();
-	   
-	   return list;
+       public ResponseEntity<List<UserEntity>> getAllData(){
+	   try {
+	       List<UserEntity> list = userService.getAllUser();
+	       return ResponseEntity.status(HttpStatus.OK).body(list);
+	   }catch (Exception e) {
+	       e.printStackTrace();
+	       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	   }
        }
-       
-       @PutMapping("/user/{id}")
-       public UserEntity updateUser(@RequestBody @PathVariable("id") int id, UserEntity userEntity) {
-	 UserEntity user = userService.updateUser(userEntity);
-	   return user;
-       }
+	   
+//       @PutMapping("/user/{id}")
+//       public ResponseEntity<UserEntity> updateUser(@RequestBody @PathVariable("id") int id, UserEntity userEntity) {
+//	 UserEntity user = userService.updateUser(userEntity);
+//	   return user;
+//       }
        
        @DeleteMapping("/user")
-       public void deleteUser(@RequestBody UserEntity userEntity) {
+       public ResponseEntity<Void> deleteUser(@RequestBody UserEntity userEntity) {
+	   try {
 	   userService.deleteAll(userEntity);
+	   return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	   }catch(Exception e) {
+	   e.printStackTrace();
+	   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	   }
        }
 }
