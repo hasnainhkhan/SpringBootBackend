@@ -61,4 +61,9 @@ public class UserController {
 	   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	   }
        }
+	   @PostMapping("/student")
+	   public ResponseEntity <UserEntity> createUser(UserEntity userEntity){
+		UserEntiy user = userService.createUser(userEntity);
+		return user;
+	   }
 }
