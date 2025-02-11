@@ -1,0 +1,15 @@
+@charset "ISO-8859-1";
+*{
+	padding: 0px;
+	marging:0px
+}
+body{
+	background-color: rgb(128, 0, 128);
+	
+}
+h1{
+	color:wheat;
+}
+section{
+	background-color: aliceblue;
+}

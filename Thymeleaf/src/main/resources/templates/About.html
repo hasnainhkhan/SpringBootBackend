@@ -1,18 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <h1>Name:</h1>
+    <!-- <h1>Name:</h1>
     <h1 th:text="${name}">Default Name</h1>
 
     <h2>User List:</h2>
     <ul> 
         <li th:each="user : ${users}" th:text="${user}"></li> 
     </ul>
-    <h1 th:text = "1"></h1>dd
+    <h1 th:text = "1"></h1> -->
+    <section >
+        <h1>THis is new about section</h1>
+        <h2>Lorem ipsum dolor sit amet consectetur 
+            adipisicing elit. Sequi odio quaerat harum 
+            optio ab accusantium dignissimos animi quae. 
+            Officia veniam reiciendis facere illo rem. Soluta 
+            minus eligendi ipsa magnam quibusdam quaerat, n
+            esciunt sed deleniti non necessitatibus ullam, 
+            delectus consectetur tenetur ex quia cupiditate 
+            aut? Pariatur, voluptates odio inventore illum 
+            distinctio optio magnam explicabo libero fuga nisi, 
+            voluptatum laborum, expedita quaerat aperiam? Suscipit 
+            vero reprehenderit quod nihil, ipsa officia iusto ad 
+            voluptate voluptates ipsam non laborum beatae numquam placeat 
+            mollitia obcaecati velit magnam enim ullam ratione sed. 
+            Accusamus iste animi, obcaecati minima ducimus explicabo ratione 
+            vel a dolor est similique voluptas?</h2>
+    </section>
+
+
 </body>
 </html>
