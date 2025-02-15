@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -25,6 +26,11 @@ public class UserController {
         model.addAttribute("users", users); // ✅ Ensure it matches the Thymeleaf variable
         model.addAttribute("1","1");
         return "About"; // Make sure you have About.html
+    }
+   
+    @GetMapping("hello")
+    public String userPage() {
+	return "About";
     }
     
 }
