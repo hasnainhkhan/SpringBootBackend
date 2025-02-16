@@ -32,9 +32,6 @@ public class UserController {
     public String userPage() {
 	return "About";
     }
-    @GetMapping("hello")
-    public String userPagee() {
-	return "About";
-    }
+  
     
 }
