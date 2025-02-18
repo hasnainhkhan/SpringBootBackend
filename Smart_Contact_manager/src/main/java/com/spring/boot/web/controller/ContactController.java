@@ -8,6 +8,7 @@ public class ContactController {
     
     @GetMapping("/login")
     public String login() {
+	System.out.println("form , html printed");
 	return "form";
     }
 }
