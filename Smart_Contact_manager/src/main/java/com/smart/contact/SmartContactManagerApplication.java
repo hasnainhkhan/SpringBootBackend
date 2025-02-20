@@ -1,4 +1,4 @@
-package com.spring.boot.web;
+package com.smart.contact;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

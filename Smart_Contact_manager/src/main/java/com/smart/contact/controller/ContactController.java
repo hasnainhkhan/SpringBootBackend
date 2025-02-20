@@ -1,4 +1,4 @@
-package com.spring.boot.web.controller;
+package com.smart.contact.controller;
 
 import org.springframework.stereotype.Controller;
 
