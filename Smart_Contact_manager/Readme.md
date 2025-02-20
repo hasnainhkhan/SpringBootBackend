@@ -1,5 +1,5 @@
-<h1>https://app.diagrams.net/</h1>
-<h1>To create E-R Diagram of Your Project</h1>
+## https://app.diagrams.net/
+## to create er diagram
 
 # Smart Contact Manager
 
