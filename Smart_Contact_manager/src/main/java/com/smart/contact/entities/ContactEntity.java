@@ -22,7 +22,7 @@ public class ContactEntity {
     @Column(unique = true)
     private String phone;
     private String image;
-    @Column(length = 5000)
+    @Column(length = 1000)
     private String description;
 
     @ManyToOne

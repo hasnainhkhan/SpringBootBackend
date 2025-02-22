@@ -35,6 +35,7 @@ public class UserEntity {
     @Column(length = 500) // length are 500 words
     private String about;
     
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY) // cascade to create all and delete all
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY ,mappedBy = "userEntity") 
+    // cascade to create all and delete all MapedBy change permission to create another table
     private List<ContactEntity> contacts = new ArrayList<>();
 }
