@@ -17,10 +17,16 @@
 .banner{
 	width:100%;
 	height: 93vh;
-	background-color:#D91656;
 	color:white;
-	background: url("../images/background.jpg"); 
+	background:linear-gradient(rgb(0,0,0,0.7),rgba(0,0,0,0.7)), url("../images/background.jpg"); 
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 .footer{
 	background-color: #FFEB55;
+}
+
+.card--body{
+	color:#640D5F;
+	margin-top:80px;
 }
