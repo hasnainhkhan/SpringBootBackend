@@ -1,9 +1,10 @@
 @charset "ISO-8859-1";
 
 body{
-	background-color: rebeccapurple;
+	background-color: rgb(0, 0, 128) !important;
 }
 *{
 	margin:0px;
-	padding: 0;
+	padding:0px;
 }
+
