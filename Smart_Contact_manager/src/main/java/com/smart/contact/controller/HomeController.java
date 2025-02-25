@@ -9,7 +9,9 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String home(Model model) {
+		model.addAttribute("pname","Smart Contact Manager");
 		model.addAttribute("title", "Home~Smart Contact Manager");
+//		model.addAttribute("copyright","© 2025 Smart Contact Manager, Inc");
 		return "home";
 	}
 
