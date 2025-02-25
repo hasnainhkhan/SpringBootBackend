@@ -16,9 +16,10 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "Users") @ToString
 @Getter @Setter @NoArgsConstructor 
 public class UserEntity {
     
@@ -38,4 +39,6 @@ public class UserEntity {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY ,mappedBy = "userEntity") 
     // cascade to create all and delete all MapedBy change permission to create another table
     private List<ContactEntity> contacts = new ArrayList<>();
+    
+    
 }
