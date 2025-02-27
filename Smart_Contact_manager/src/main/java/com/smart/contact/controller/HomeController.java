@@ -1,6 +1,6 @@
 package com.smart.contact.controller;
 
-import org.apache.catalina.User;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.smart.contact.configuration.MsgConfig;
 import com.smart.contact.dao.UserRepository;
 import com.smart.contact.entities.UserEntity;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -42,7 +45,9 @@ public class HomeController {
 	// registering user
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute("userEntity") UserEntity userEntity,
-			@RequestParam(value = "agrement", defaultValue = "false") boolean agrement, Model model) {
+			@RequestParam(value = "agrement", defaultValue = "false") 
+			boolean agrement, Model model,HttpSession session) {
+		try {
 		if (!agrement) {
 		}
 
@@ -52,14 +57,18 @@ public class HomeController {
 		System.out.println("UserEntity" + userEntity);
 
 		UserEntity result = this.userRepository.save(userEntity);
+		} catch (Exception e){
+			e.printStackTrace();
+			session.setAttribute("message", new MsgConfig("Something went wrong"+e.getMessage(),"aleart-error"));
+		}
 		return "signup";
 
 	}
-	
+
 	@RequestMapping("/login")
 	public String loginPage(Model model) {
-		model.addAttribute("title","This is Login Page");
-		model.addAttribute("msg","Hello Plese insert your Cridential");
+		model.addAttribute("title", "This is Login Page");
+		model.addAttribute("msg", "Hello Plese insert your Cridential");
 		return "login";
 	}
 }
