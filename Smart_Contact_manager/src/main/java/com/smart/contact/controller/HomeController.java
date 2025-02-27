@@ -45,25 +45,29 @@ public class HomeController {
 	// registering user
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute("userEntity") UserEntity userEntity,
-			@RequestParam(value = "agrement", defaultValue = "false") 
-			boolean agrement, Model model,HttpSession session) {
+			@RequestParam(value = "agrement", defaultValue = "false") boolean agrement, Model model,
+			HttpSession session) {
 		try {
-		if (!agrement) {
-		}
+			if (!agrement) {
+				System.out.println("You have not agreed t&c");
+				throw new Exception("You have not agreed t&c");
+			}
 
-		userEntity.setRole("User_role");
-		userEntity.setEnabled(true);
-		model.addAttribute("userEntity", userEntity);
-		System.out.println("UserEntity" + userEntity);
+			userEntity.setRole("User_role");
+			userEntity.setEnabled(true);
+			model.addAttribute("userEntity", userEntity);
+			System.out.println("UserEntity" + userEntity);
 
-		UserEntity result = this.userRepository.save(userEntity);
-		} catch (Exception e){
+			UserEntity result = this.userRepository.save(userEntity);
+			session.setAttribute("message", new MsgConfig("Data Submitted" , "aleart-success"));
+			return "signup";
+		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("message", new MsgConfig("Something went wrong"+e.getMessage(),"aleart-error"));
+			session.setAttribute("message", new MsgConfig("Something went wrong" + e.getMessage(), "aleart-error"));
+			return "signup";
 		}
-		return "signup";
-
 	}
+
 
 	@RequestMapping("/login")
 	public String loginPage(Model model) {
