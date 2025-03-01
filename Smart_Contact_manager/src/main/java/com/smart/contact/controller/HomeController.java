@@ -75,4 +75,8 @@ public class HomeController {
 		model.addAttribute("msg", "Hello Plese insert your Cridential");
 		return "login";
 	}
+	@RequestMapping("/error")
+	public String errorPage() {
+		return "error";
+	}
 }
