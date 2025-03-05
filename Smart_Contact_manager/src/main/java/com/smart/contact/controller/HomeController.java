@@ -4,6 +4,7 @@ import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import com.smart.contact.dao.UserRepository;
 import com.smart.contact.entities.UserEntity;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class HomeController {
@@ -60,13 +62,28 @@ public class HomeController {
 
 			UserEntity result = this.userRepository.save(userEntity);
 			session.setAttribute("message", new MsgConfig("Data Submitted" , "aleart-success"));
+			
 			return "signup";
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("message", new MsgConfig("Something went wrong" + e.getMessage(), "aleart-error"));
+			session.setAttribute("message", new MsgConfig("Something went wrong" + e.getMessage(), "aleart-danger"));
+			
 			return "signup";
+			
 		}
+		
+		
 	}
+
+//    @RequestMapping(value = "/submit", method = RequestMethod.POST) 
+//    public String submit(@Valid @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result) { 
+//        if (result.hasErrors()) { 
+//            return "userEntity"; 
+//        } 
+//        else { 
+//            return "summary"; 
+//        } 
+//    }
 
 
 	@RequestMapping("/login")
@@ -75,8 +92,5 @@ public class HomeController {
 		model.addAttribute("msg", "Hello Plese insert your Cridential");
 		return "login";
 	}
-	@RequestMapping("/error")
-	public String errorPage() {
-		return "error";
-	}
+
 }

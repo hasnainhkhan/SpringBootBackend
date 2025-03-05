@@ -15,7 +15,11 @@
 			<div class="card" style="width: 30rem;">
 				<img th:src="@{/images/register_here.jpg}" class="card-img-top" alt="Register">
 				<div class="card-body">
-					<div th:if="${session.message}" th:text="${message}" class="alert alert-secondary" role="alert">
+					<div id="message" th:if="${session.message}" class="alert alert-secondary" role="alert">
+						<p th:text="${session.message.content}"></p>
+						<button onclick="removeMessage()">×</button>
+
+
 					</div>
 					<h1 class="text-center">Register Here !!</h1>
 					<!-- form -->

@@ -13,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,8 +27,11 @@ public class UserEntity {
     
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    
+    @NotBlank(message = "Name must Not Null")
     private String name;
     @Column(unique = true) //email column are unique key 
+    @Email(message = "Insert Valid Email!! Email shouldn't blank")
     private String email;
     private String password;
     private String role;
