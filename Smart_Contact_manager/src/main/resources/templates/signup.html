@@ -2,61 +2,83 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Signup Form</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Signup Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-	<section class="banner d-flex justify-content-center align-items-center">
+    <section class="banner d-flex justify-content-center align-items-center">
+        <!--form-->
+        <div class="container mt-8 offset-md-1 h-100 p-3 text-uppercase card--body">
+            <div class="card" style="width: 30rem;">
+                <img th:src="@{/images/register_here.jpg}" class="card-img-top" alt="Register">
+                <div class="card-body">
 
-		<!--form-->
-		<div class="container mt-8 offset-md-1 h-100 p-3 text-uppercase card--body">
-			<div class="card" style="width: 30rem;">
-				<img th:src="@{/images/register_here.jpg}" class="card-img-top" alt="Register">
-				<div class="card-body">
-					<div id="message" th:if="${session.message}" class="alert alert-secondary" role="alert">
-						<p th:text="${session.message.content}"></p>
-						<button onclick="removeMessage()">×</button>
+                    <!-- Session Message Alert -->
+                    <div id="message" th:if="${session.message}" class="alert alert-secondary" role="alert">
+                        <p th:text="${session.message.content}"></p>
+                        <button type="button" class="close" onclick="removeMessage()">&times;</button>
+                    </div>
+                    <!-- Clear session message after display -->
+                    <th:block th:text="${@session.removeAttribute('message')}"></th:block>
 
+                    <h1 class="text-center">Register Here !!</h1>
 
-					</div>
-					<h1 class="text-center">Register Here !!</h1>
-					<!-- form -->
-					<form th:action="@{/register}" method="post" th:object="${userEntity}">
+                    <!-- Form -->
+                    <form th:action="@{/register}" method="post" th:object="${userEntity}">
+                        <!-- Name Field -->
 						<div class="form-group">
+						    <label for="name">Name</label>
+						    <input type="text" name="name" class="form-control" id="name"
+						           th:value="${userEntity.name}"
+						           >
+						</div>
 
-							<label for="name">Name</label>
-							<input type="text" name="name" class="form-control" id="name" th:value="${userEntity.name}">
-						</div>
-						<div class="form-group">
 
-							<label for="Email">Email address</label>
-							<input type="email" name="email" class="form-control" id="Email"
-								th:value="${userEntity.email}">
-						</div>
-						<div class="form-group">
-							<label for="password">Password</label>
-							<input type="password" name="password" class="form-control" id="password">
-						</div>
-						<div class="form-group">
-							<textarea row="3" cols="55" name="about" th:value="${userEntity.about}"></textarea>
-						</div>
-						<div class="form-group form-check">
-							<input type="checkbox" name="agrement" class="form-check-input" id="checkbox">
-							<label class="form-check-label" for="checkbox">Accept term and condition</label>
-						</div>
-						<div class="container text-center">
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="submit" class="btn btn-primary">Reset</button>
+                        <!-- Email Field -->
+                        <div class="form-group">
+                            <label for="Email">Email address</label>
+                            <input type="email" name="email" class="form-control" id="Email"
+                                   th:value="${userEntity.email}"
+                                   >
+                        </div>
 
-						</div>
-					</form>
-					<!-- form -->
+                        <!-- Password Field -->
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control" id="password">
+                        </div>
 
-				</div>
-				<!--form-->
-	</section>
+                        <!-- About Field -->
+                        <div class="form-group">
+                            <label for="about">About</label>
+                            <textarea rows="3" cols="55" name="about" id="about"
+                                      class="form-control"
+                                      th:classappend="${#fields.hasErrors('about') ? 'is-invalid' : ''}"
+                                      th:text="${userEntity.about}"></textarea>
+                        </div>
+
+                        <!-- Terms & Conditions Checkbox -->
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="agrement" class="form-check-input" id="checkbox">
+                            <label class="form-check-label" for="checkbox">Accept terms and conditions</label>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="container text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </form>
+                    <!-- End Form -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
 </body>
 
 </html>

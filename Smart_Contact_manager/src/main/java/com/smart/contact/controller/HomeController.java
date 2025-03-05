@@ -16,8 +16,10 @@ import com.smart.contact.entities.UserEntity;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class HomeController {
 
 	@Autowired
@@ -46,44 +48,38 @@ public class HomeController {
 
 	// registering user
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@ModelAttribute("userEntity") UserEntity userEntity,
+	public String register(@Valid @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result,
 			@RequestParam(value = "agrement", defaultValue = "false") boolean agrement, Model model,
 			HttpSession session) {
+
 		try {
 			if (!agrement) {
-				System.out.println("You have not agreed t&c");
-				throw new Exception("You have not agreed t&c");
+				throw new Exception("You have not agreed to terms & conditions.");
 			}
 
+			// ** Check for validation errors **
+			if (result.hasErrors()) {
+				log.info("Validation errors: {}", result.getAllErrors());
+				session.setAttribute("message",
+						new MsgConfig("Validation Error! Please fill all fields.", "alert-danger"));
+				return "signup"; // Return signup page if validation fails
+			}
+
+			// Set default values
 			userEntity.setRole("User_role");
 			userEntity.setEnabled(true);
-			model.addAttribute("userEntity", userEntity);
-			System.out.println("UserEntity" + userEntity);
 
-			UserEntity result = this.userRepository.save(userEntity);
-			session.setAttribute("message", new MsgConfig("Data Submitted" , "aleart-success"));
-			
+			UserEntity savedUser = userRepository.save(userEntity);
+			session.setAttribute("message", new MsgConfig("Data Submitted", "alert-success"));
+
 			return "signup";
 		} catch (Exception e) {
-			e.printStackTrace();
-			session.setAttribute("message", new MsgConfig("Something went wrong" + e.getMessage(), "aleart-danger"));
-			
+			log.error("Error during registration", e);
+			session.setAttribute("message", new MsgConfig("Something went wrong: " + e.getMessage(), "alert-danger"));
 			return "signup";
-			
 		}
-		
-		
 	}
 
-//    @RequestMapping(value = "/submit", method = RequestMethod.POST) 
-//    public String submit(@Valid @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result) { 
-//        if (result.hasErrors()) { 
-//            return "userEntity"; 
-//        } 
-//        else { 
-//            return "summary"; 
-//        } 
-//    }
 
 
 	@RequestMapping("/login")
