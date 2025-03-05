@@ -4,27 +4,18 @@ import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.smart.contact.configuration.MsgConfig;
 import com.smart.contact.dao.UserRepository;
 import com.smart.contact.entities.UserEntity;
-
 import jakarta.servlet.http.HttpSession;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-=======
->>>>>>> parent of 13041b8 (validation added)
-=======
->>>>>>> parent of 13041b8 (validation added)
-=======
->>>>>>> parent of 13041b8 (validation added)
+
 
 @Controller
 @Slf4j
@@ -77,7 +68,6 @@ public class HomeController {
 			userEntity.setRole("User_role");
 			userEntity.setEnabled(true);
 
-<<<<<<< HEAD
 			UserEntity savedUser = userRepository.save(userEntity);
 			session.setAttribute("message", new MsgConfig("Data Submitted", "alert-success"));
 
@@ -85,34 +75,12 @@ public class HomeController {
 		} catch (Exception e) {
 			log.error("Error during registration", e);
 			session.setAttribute("message", new MsgConfig("Something went wrong: " + e.getMessage(), "alert-danger"));
-=======
-			UserEntity result = this.userRepository.save(userEntity);
+			UserEntity result1 = this.userRepository.save(userEntity);
 			session.setAttribute("message", new MsgConfig("Data Submitted" , "aleart-success"));
-			return "signup";
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.setAttribute("message", new MsgConfig("Something went wrong" + e.getMessage(), "aleart-error"));
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 13041b8 (validation added)
-=======
->>>>>>> parent of 13041b8 (validation added)
-=======
->>>>>>> parent of 13041b8 (validation added)
 			return "signup";
 		}
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 13041b8 (validation added)
-=======
->>>>>>> parent of 13041b8 (validation added)
-=======
->>>>>>> parent of 13041b8 (validation added)
 
 	@RequestMapping("/login")
 	public String loginPage(Model model) {
