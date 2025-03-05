@@ -14,9 +14,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+=======
+>>>>>>> parent of 13041b8 (validation added)
 =======
 >>>>>>> parent of 13041b8 (validation added)
 import lombok.Getter;

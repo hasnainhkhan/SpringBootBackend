@@ -15,8 +15,11 @@ import com.smart.contact.entities.UserEntity;
 
 import jakarta.servlet.http.HttpSession;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+=======
+>>>>>>> parent of 13041b8 (validation added)
 =======
 >>>>>>> parent of 13041b8 (validation added)
 
@@ -86,13 +89,19 @@ public class HomeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("message", new MsgConfig("Something went wrong" + e.getMessage(), "aleart-error"));
+<<<<<<< HEAD
+>>>>>>> parent of 13041b8 (validation added)
+=======
 >>>>>>> parent of 13041b8 (validation added)
 			return "signup";
 		}
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 13041b8 (validation added)
 =======
 >>>>>>> parent of 13041b8 (validation added)
 
