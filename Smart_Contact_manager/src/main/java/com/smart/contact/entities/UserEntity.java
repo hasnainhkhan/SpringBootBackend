@@ -13,9 +13,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+<<<<<<< HEAD
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+=======
+>>>>>>> parent of 13041b8 (validation added)
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +31,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 public class UserEntity {
+<<<<<<< HEAD
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,4 +59,25 @@ public class UserEntity {
 	// another table
 	private List<ContactEntity> contacts = new ArrayList<>();
 
+=======
+    
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private String name;
+    @Column(unique = true) //email column are unique key 
+    private String email;
+    private String password;
+    private String role;
+    private boolean enabled;
+    private String imageUrl;
+    
+    @Column(length = 500) // length are 500 words
+    private String about;
+    
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY ,mappedBy = "userEntity") 
+    // cascade to create all and delete all MapedBy change permission to create another table
+    private List<ContactEntity> contacts = new ArrayList<>();
+    
+    
+>>>>>>> parent of 13041b8 (validation added)
 }

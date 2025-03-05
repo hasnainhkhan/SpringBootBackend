@@ -103,7 +103,7 @@ public class ContactEntity {
 
     public ContactEntity() {
 	super();
-	// this is default constructor
+	// this is default constructure
     }
 
 }
