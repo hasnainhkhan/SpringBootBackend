@@ -1,6 +1,5 @@
 package com.smart.contact.controller;
 
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,39 +46,38 @@ public class HomeController {
 
 	// registering user
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@Valid @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result,
-			@RequestParam(value = "agrement", defaultValue = "false") boolean agrement, Model model,
-			HttpSession session) {
+	public String register(@Valid @ModelAttribute("userEntity") UserEntity userEntity,
+	        BindingResult result, 
+	        @RequestParam(value = "agrement", defaultValue = "false") boolean agrement,
+	        Model model, HttpSession session) {
+	    
+	    try {
+	        if (!agrement) {
+	            throw new Exception("You have not agreed to terms & conditions.");
+	        }
 
-		try {
-			if (!agrement) {
-				throw new Exception("You have not agreed to terms & conditions.");
-			}
+	        // ** Check for validation errors **
+	        if (result.hasErrors()) {
+	            log.info("Validation errors: {}", result.getAllErrors());
+	            session.setAttribute("message", new MsgConfig("Validation Error! Please fill all fields.", "alert-danger"));
+	            return "signup"; // Return signup page if validation fails
+	        }
 
-			// ** Check for validation errors **
-			if (result.hasErrors()) {
-				log.info("Validation errors: {}", result.getAllErrors());
-				session.setAttribute("message",
-						new MsgConfig("Validation Error! Please fill all fields.", "alert-danger"));
-				return "signup"; // Return signup page if validation fails
-			}
+	        // Set default values
+	        userEntity.setRole("User_role");
+	        userEntity.setEnabled(true);
 
-			// Set default values
-			userEntity.setRole("User_role");
-			userEntity.setEnabled(true);
+	        UserEntity savedUser = userRepository.save(userEntity);
+	        session.setAttribute("message", new MsgConfig("Data Submitted", "alert-success"));
 
-			UserEntity savedUser = userRepository.save(userEntity);
-			session.setAttribute("message", new MsgConfig("Data Submitted", "alert-success"));
-
-			return "signup";
-		} catch (Exception e) {
-			log.error("Error during registration", e);
-			session.setAttribute("message", new MsgConfig("Something went wrong: " + e.getMessage(), "alert-danger"));
-			UserEntity result1 = this.userRepository.save(userEntity);
-			session.setAttribute("message", new MsgConfig("Data Submitted" , "aleart-success"));
-			return "signup";
-		}
+	        return "signup";
+	    } catch (Exception e) {
+	        log.error("Error during registration", e);
+	        session.setAttribute("message", new MsgConfig("Something went wrong: " + e.getMessage(), "alert-danger"));
+	        return "signup";
+	    }
 	}
+
 
 
 	@RequestMapping("/login")
