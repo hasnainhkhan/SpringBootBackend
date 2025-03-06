@@ -14,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,8 @@ public class UserEntity {
 	@NotBlank(message = "Email cannot be empty")
 	@Email(message = "Insert a valid email!")
 	private String email;
-
+	
+	@NotNull(message = "Password not be null")
 	private String password;
 	private String role;
 	private boolean enabled;

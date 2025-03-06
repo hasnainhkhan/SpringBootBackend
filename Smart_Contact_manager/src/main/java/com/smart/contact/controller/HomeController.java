@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Controller
 @Slf4j
 public class HomeController {
@@ -46,39 +45,39 @@ public class HomeController {
 
 	// registering user
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@Valid @ModelAttribute("userEntity") UserEntity userEntity,
-	        BindingResult result, 
-	        @RequestParam(value = "agrement", defaultValue = "false") boolean agrement,
-	        Model model, HttpSession session) {
-	    
-	    try {
-	        if (!agrement) {
-	            throw new Exception("You have not agreed to terms & conditions.");
-	        }
+	public String register(@Valid @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result,
+			@RequestParam(value = "agrement", defaultValue = "false") boolean agrement, Model model,
+			HttpSession session) {
 
-	        // ** Check for validation errors **
-	        if (result.hasErrors()) {
-	            log.info("Validation errors: {}", result.getAllErrors());
-	            session.setAttribute("message", new MsgConfig("Validation Error! Please fill all fields.", "alert-danger"));
-	            return "signup"; // Return signup page if validation fails
-	        }
+		try {
+			// 🚀 1. Check if user accepted Terms & Conditions
+			if (!agrement) {
+				session.setAttribute("message",
+						new MsgConfig("You must accept the Terms & Conditions!", "alert-danger"));
+				return "signup";
+			}
 
-	        // Set default values
-	        userEntity.setRole("User_role");
-	        userEntity.setEnabled(true);
+			// 2. Check for validation errors
+			if (result.hasErrors()) {
+				log.info("Validation errors: {}", result.getAllErrors());
+				model.addAttribute("userEntity", userEntity); // Preserve entered data
+				return "signup"; // Show form again with validation messages
+			}
 
-	        UserEntity savedUser = userRepository.save(userEntity);
-	        session.setAttribute("message", new MsgConfig("Data Submitted", "alert-success"));
+			// 3. Save user
+			userEntity.setRole("User_role");
+			userEntity.setEnabled(true);
+			userRepository.save(userEntity);
 
-	        return "signup";
-	    } catch (Exception e) {
-	        log.error("Error during registration", e);
-	        session.setAttribute("message", new MsgConfig("Something went wrong: " + e.getMessage(), "alert-danger"));
-	        return "signup";
-	    }
+			session.setAttribute("message", new MsgConfig("Registration Successful!", "alert-success"));
+			return "signup";
+
+		} catch (Exception e) {
+			log.error("Error during registration", e);
+			session.setAttribute("message", new MsgConfig("Something went wrong: " + e.getMessage(), "alert-danger"));
+			return "signup";
+		}
 	}
-
-
 
 	@RequestMapping("/login")
 	public String loginPage(Model model) {
