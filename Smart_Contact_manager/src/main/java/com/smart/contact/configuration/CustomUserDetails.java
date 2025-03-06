@@ -1,15 +1,20 @@
 package com.smart.contact.configuration;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.smart.contact.entities.UserEntity;
 
 public class CustomUserDetails implements UserDetails{
 
-	
+//step 1. Config user Detail
+//     2. Adding User Detail Service
+//     3. Adding UserDetailServiceImpl
+//     4. write security configuration WebsecurityConfigurer
 	private UserEntity userEntity;
 	
 	public CustomUserDetails(UserEntity userEntity) {
@@ -19,8 +24,9 @@ public class CustomUserDetails implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userEntity.getRole());
+		return List.of(simpleGrantedAuthority);
 	}
 
 	@Override
