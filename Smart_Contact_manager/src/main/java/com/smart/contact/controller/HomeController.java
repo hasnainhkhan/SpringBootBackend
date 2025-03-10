@@ -84,10 +84,10 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping("/login")
-	public String loginPage(Model model) {
-		model.addAttribute("title", "This is Login Page");
-		model.addAttribute("msg", "Hello Plese insert your Cridential");
-		return "login";
-	}
+//	@RequestMapping("/login")
+//	public String loginPage(Model model) {
+//		model.addAttribute("title", "This is Login Page");
+//		model.addAttribute("msg", "Hello Plese insert your Cridential");
+//		return "login";
+//	}
 }
