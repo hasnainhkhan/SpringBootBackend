@@ -8,20 +8,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.smart.contact.dao.UserRepository;
 import com.smart.contact.entities.UserEntity;
 
-public class UserDetatilsServiceImpl implements UserDetailsService{
-	
+public class UserDetatilsServiceImpl implements UserDetailsService {
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+
 		UserEntity users = userRepository.getUeserByUserName(username);
-		if(users == null) {
+		if (users == null) {
 			throw new UsernameNotFoundException("Could not found this user");
 		}
 		CustomUserDetails customUserDetails = new CustomUserDetails(users);
-		
+
 		return customUserDetails;
 	}
 
