@@ -1,6 +1,7 @@
 package com.smart.contact.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,9 @@ public class HomeController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@RequestMapping("/")
 	public String home(Model model) {
@@ -67,6 +71,7 @@ public class HomeController {
 			// 3. Save user
 			userEntity.setRole("User_role");
 			userEntity.setEnabled(true);
+			userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 			userRepository.save(userEntity);
 
 			session.setAttribute("message", new MsgConfig("Registration Successful!", "alert-success"));

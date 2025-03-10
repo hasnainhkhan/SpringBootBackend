@@ -3,6 +3,7 @@ package com.smart.contact.configuration;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ public class CustomUserDetails implements UserDetails{
 //     2. Adding User Detail Service
 //     3. Adding UserDetailServiceImpl
 //     4. write security configuration WebsecurityConfigurer
+	@Autowired
 	private UserEntity userEntity;
 	
 	public CustomUserDetails(UserEntity userEntity) {

@@ -42,15 +42,19 @@ public class MyConfig {
 		auth.authenticationProvider(authenticationProvider());
 	}
 	
-	@Bean
-	protected void configure(HttpSecurity http) throws Exception {
-	    http.authorizeRequests()
-	        .requestMatchers("/admin/**").hasRole("ADMIN")
-	        .requestMatchers("/user/**").hasRole("USER")
-	        .requestMatchers("/").permitAll()
-	        .and()
-	        .formLogin()
-	        .and()
-	        .csrf().disable();
-	}
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasRole("USER")
+                .requestMatchers("/").permitAll()
+                .requestMatchers("/signup").permitAll()
+            )
+            .formLogin()
+            .and()
+            .csrf(csrf -> csrf.disable());
+
+        return http.build(); // ✅ यह `SecurityFilterChain` return करेगा।
+    }
 }
