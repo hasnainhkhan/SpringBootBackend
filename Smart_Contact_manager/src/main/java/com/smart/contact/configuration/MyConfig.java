@@ -16,7 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class MyConfig {
-
+	
+	private LoginRedirect loginRedirect;
+	
+	public MyConfig(LoginRedirect loginRedirect) {
+		this.loginRedirect = loginRedirect;
+	}
+	
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -44,11 +50,10 @@ public class MyConfig {
                 .requestMatchers("/", "/login", "/signup", "/register").permitAll()
                 .requestMatchers("/static/**", "/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
             )
-//            .formLogin(form -> form
-//                .loginPage("/login")
-            	.formLogin(withDefaults())
-//                .defaultSuccessUrl("/user/dashboard", true) // ✅ Fixed redirect issue
-//                .permitAll()
+            .formLogin(form -> form
+                .loginPage("/login")
+                .successHandler(loginRedirect) // ✅ Fixed redirect issue
+                .permitAll())
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout=true") // ✅ Logout redirect fixed
