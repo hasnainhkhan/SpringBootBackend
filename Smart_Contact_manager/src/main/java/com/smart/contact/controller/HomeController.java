@@ -69,7 +69,7 @@ public class HomeController {
 			}
 
 			// 3. Save user
-			userEntity.setRole("User_role");
+			userEntity.setRole("Role_user");
 			userEntity.setEnabled(true);
 			userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 			userRepository.save(userEntity);
