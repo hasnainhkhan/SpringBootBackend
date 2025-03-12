@@ -48,7 +48,7 @@ public class MyConfig {
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasRole("USER")
                 .requestMatchers("/", "/login", "/signup", "/register").permitAll()
-                .requestMatchers("/static/**", "/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
+                .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
             )
             .formLogin(form -> form
                 .loginPage("/login")
