@@ -75,7 +75,7 @@ public class HomeController {
 			userRepository.save(userEntity);
 
 			session.setAttribute("message", new MsgConfig("Registration Successful!", "alert-success"));
-			return "signup";
+			return "login";
 
 		} catch (Exception e) {
 			log.error("Error during registration", e);
