@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
 
 <head>
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='20' font-size='20'>🚀</text></svg>">
+
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,6 +48,23 @@
 		</div>
 	</nav>
 	<!-- nav bar endded -->
+	<!-- this is side bar start-->
+	<div class="sidebar">
+	<a href="#" class="item">Home</a>
+	<a href="#" class="item">View Contacts</a>
+	<a href="#" class="item">Add Contacts</a>
+	<a href="#" class="item">Your Profile</a>
+	<a href="#" class="item">Settings</a>
+	<a th:href="@{logout}" class="item">Logout</a>
+	<div class="divider">
+		
+	</div>
+	</div>
+	<!-- this is side bar content start-->
+	<div class="content">
+		
+		
+	</div>
 	<div th:replace="${content}"> </div>
 
 

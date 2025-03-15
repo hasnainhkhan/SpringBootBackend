@@ -34,3 +34,39 @@
 	background-color: aliceblue;
 }
 
+/*side bar style*/
+
+@media only screen and (max-width:1000){}
+
+.sidebar{
+	width: 18%;
+	background:rgb(255, 255, 255);
+	padding-top:45px;
+	position: fixed;
+	height: 100%;
+}
+.sidebar a{
+	color: #640D5F;
+	padding: 10% 20%;
+	width:100%;
+	display: block;
+	text-decoration: none;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.sidebar a:hover{
+	background-color: #640D5F;
+	color: white;
+	text-decoration: none;
+}
+.sidebar .divider{
+	background-color: #e2e2e2;
+	margin-top:10px;
+	width: 100%;
+	height: .5px;
+}
+
+.content{
+	margin-left:20%;
+}
