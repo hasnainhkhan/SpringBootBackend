@@ -13,4 +13,9 @@ public class AdminController {
 		model.addAttribute("title", "Admin Index");
 		return "admin/index";
 	}
+	@RequestMapping("/users")
+	public String usersInfo(Model model) {
+		model.addAttribute("title","Users Information");
+		return "admin/users.html";
+	}
 }
