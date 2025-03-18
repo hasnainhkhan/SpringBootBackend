@@ -4,7 +4,7 @@
 <head>
 	<link rel="icon" type="image/png" href="favicon.png">
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='20' font-size='20'>🚀</text></svg>">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,9 +35,6 @@
 					<a class="nav-link" th:href="@{/admin/users}">users</a>
 				</li>
 				
-				<li class="nav-item">
-					<a class="nav-link" href="#">About</a>
-				</li>
 				
 
 				<li class="nav-item">
@@ -77,6 +74,7 @@
 		<li class="nav-item"><a th:href="@{/user/index}" class="nav-link px-2 text-muted">Home</a></li>
 		<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
 		<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+		<li class="nav-item"><a th:href="@{/logout}" class="nav-link px-2 text-muted">logout</a></li>
 	</ul>
 	<p class="text-center text-muted">© 2025 Smart Contact Manager, Inc</p>
 </footer>

@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -50,6 +49,7 @@ public class MyConfig {
                 .requestMatchers("/", "/login", "/signup", "/register").permitAll()
                 .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
             )
+//            .authenticationProvider(null) for custom authentication use
             .formLogin(form -> form
                 .loginPage("/login")
                 .successHandler(loginRedirect) // ✅ Fixed redirect issue

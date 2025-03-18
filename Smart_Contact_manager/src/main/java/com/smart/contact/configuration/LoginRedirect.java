@@ -22,18 +22,18 @@ public class LoginRedirect  implements AuthenticationSuccessHandler{
 	                                        Authentication authentication) throws IOException, ServletException {
 	        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-	        // ✅ Check User Role and Redirect Accordingly
+	        // Check User Role and Redirect Accordingly
 	        for (GrantedAuthority authority : authorities) {
 	            if (authority.getAuthority().equals("ROLE_ADMIN")) {
-	                response.sendRedirect("/admin/index"); // 🔥 Admin redirect
+	                response.sendRedirect("/admin/index"); //  Admin redirect
 	                return;
 	            } else if (authority.getAuthority().equals("ROLE_USER")) {
-	                response.sendRedirect("/user/index"); // 🔥 User redirect
+	                response.sendRedirect("/user/index"); //  User redirect
 	                return;
 	            }
 	        }
 
-	        // Default redirect (अगर role match नहीं करता)
+	        // Default redirect role not match
 	        response.sendRedirect("/");
 	    }
 

@@ -1,7 +1,12 @@
 package com.smart.contact.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -55,6 +60,8 @@ public class UserEntity {
 	// cascade to create all and delete all MapedBy change permission to create
 	// another table
 	private List<ContactEntity> contacts = new ArrayList<>();
+
+
 
     
  
