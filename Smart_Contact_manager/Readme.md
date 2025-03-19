@@ -118,7 +118,8 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 (Include relevant UI screenshots here)
 
----
+ ## E-R diaram
+![erdiagram](https://github.com/user-attachments/assets/5dbd4fa8-d4c4-4378-a59b-c44a3fecc6d8)
 
 ## 🤝 Contributing
 
