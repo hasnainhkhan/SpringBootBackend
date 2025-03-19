@@ -10,11 +10,10 @@
 <body>
 	<section class="banner d-flex justify-content-center align-items-center">
 		<div class="text-center">
-			<h1 th:text="${pname}"></h1>
+			<h1 th:text="${pname}"><a th:href="@{logout}"></a></h1>
 			<p>
 				Collect your contact information using smarter and efficient way
 			</p>
-			<a th:href="@{/logout}" class="btn btn-primary">Logout</a>
 
 		</div>
 	</section>
