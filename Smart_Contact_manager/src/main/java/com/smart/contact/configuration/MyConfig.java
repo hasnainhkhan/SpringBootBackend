@@ -44,8 +44,9 @@ public class MyConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/user/**").hasRole("USER")
+				.requestMatchers("/admin/**").permitAll()/* .hasRole("ADMIN") */
+						.requestMatchers(
+								"/user/**").permitAll()/* .hasRole("USER") */
                 .requestMatchers("/", "/login", "/signup", "/register").permitAll()
                 .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
             )
