@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.smart.contact.validation.OnCreate;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,13 +48,13 @@ public class UserEntity {
 	@Email(message = "Insert a valid email!")
 	private String email;
 	
-	@NotNull(message = "Password not be null")
+	@NotNull(message = "Password not be null" , groups = OnCreate.class)
 	private String password;
 	private String role;
 	private boolean enabled;
 	private String imageUrl;
 
-	@NotBlank(message = "Insert Something in About Section")
+	@NotBlank(message = "Insert Something in About Section", groups = OnCreate.class)
 	@Column(length = 500) // length are 500 words
 	private String about;
 

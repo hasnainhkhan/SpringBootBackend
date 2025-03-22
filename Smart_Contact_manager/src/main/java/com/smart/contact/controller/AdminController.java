@@ -1,23 +1,25 @@
 package com.smart.contact.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.smart.contact.validation.*;
+
+import jakarta.transaction.Transactional;
 
 import com.smart.contact.dao.UserRepository;
 import com.smart.contact.entities.UserEntity;
 
 @Controller
+@Transactional
 @RequestMapping("/admin")
 public class AdminController {
 	
@@ -75,14 +77,42 @@ public class AdminController {
         UserEntity user = userRepository.findById(id)
                       .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", user);
-        return "admin/edit-user"; // Thymeleaf template
+        return "/admin/edit-user"; // Thymeleaf template
     }
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable Integer id, @ModelAttribute UserEntity user) {
+    public String updateUser(@Validated(OnUpdate.class) @PathVariable Integer id, @ModelAttribute UserEntity user) {
         user.setId(id); // Ensure the correct ID
-        userRepository.save(user);
-        return "redirect:admin/users"; // Redirect to user list
+        
+        UserEntity existingUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("User not found")); //get all data of Entity
+        
+        if (user.getName() != null && !user.getName().isEmpty()) {
+            existingUser.setName(user.getName());
+        }
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            existingUser.setEmail(user.getEmail());
+        }
+        // Update enabled status
+        existingUser.setEnabled(user.isEnabled());
+        
+        userRepository.save(existingUser);
+        
+        return "redirect:/admin/users"; // Redirect to user list
     }
+    
+    //delete user controller
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Integer id) {
+        // Check if user exists
+        UserEntity existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found")); 
+
+        // Delete user
+        userRepository.delete(existingUser);
+
+        return "redirect:/admin/users"; // Redirect to user list after deletion
+    }
+
 	
 
 }

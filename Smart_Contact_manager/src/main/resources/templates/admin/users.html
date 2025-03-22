@@ -56,7 +56,12 @@
 							</form>
 						</td>
 							<td>
-								<a th:href="@{/admin/users/edit/{id}(id=${user.id})}">Edit User</a>														
+								<a class="btn btn-primary" th:href="@{/admin/delete/{id}(id=${user.id})}">
+									<i class="fas fa-edit"></i></a>
+								<form th:action="@{/admin/delete/{id}(id=${user.id})}" class="d-inline" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');">
+								    <button style="margin-top: 5px;" type="submit" class="btn btn-danger">
+										<i class="fas fa-trash"></i></button>
+								</form>
 							</td>
 					</tr>
 				</tbody>
