@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.smart.contact.configuration.MsgConfig;
 import com.smart.contact.dao.UserRepository;
 import com.smart.contact.entities.UserEntity;
+import com.smart.contact.validation.OnCreate;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +52,7 @@ public class HomeController {
 
 	// registering user
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@Valid @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result,
+	public String register(@Validated(OnCreate.class) @Valid @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result,
 			@RequestParam(value = "agrement", defaultValue = "false") boolean agrement, Model model,
 			HttpSession session) {
 

@@ -43,10 +43,13 @@ public class MyConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+        .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/admin/delete/**") //  Allow delete requests
+            )
             .authorizeHttpRequests(auth -> auth
-				.requestMatchers("/admin/**").permitAll()/* .hasRole("ADMIN") */
+				.requestMatchers("/admin/**").hasRole("ADMIN")
 						.requestMatchers(
-								"/user/**").permitAll()/* .hasRole("USER") */
+								"/user/**").hasRole("USER")
                 .requestMatchers("/", "/login", "/signup", "/register").permitAll()
                 .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
             )
