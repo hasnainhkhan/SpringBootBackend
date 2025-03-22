@@ -1,6 +1,5 @@
 package com.smart.contact.controller;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +69,20 @@ public class AdminController {
 	    model.addAttribute("users", users);
 	    return "admin/users.html";
 	}
+	
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model) {
+        UserEntity user = userRepository.findById(id)
+                      .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("user", user);
+        return "admin/edit-user"; // Thymeleaf template
+    }
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable Integer id, @ModelAttribute UserEntity user) {
+        user.setId(id); // Ensure the correct ID
+        userRepository.save(user);
+        return "redirect:admin/users"; // Redirect to user list
+    }
 	
 
 }

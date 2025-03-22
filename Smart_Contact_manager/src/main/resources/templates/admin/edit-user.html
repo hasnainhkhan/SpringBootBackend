@@ -8,7 +8,7 @@
 
 <body>
 	<section>
-		<form th:action="@{/update}" method="post">
+		<form th:action="@{/admin/users/update/{id}(id=${user.id})}" th:object="${user}" method="post">
 		    <input type="hidden" name="id" th:value="${user.id}" />
 
 		    <label>Name:</label>
