@@ -50,23 +50,24 @@
 	<!-- nav bar endded -->
 	<!-- this is side bar start-->
 	<div class="sidebar">
-	<a href="#" class="item">Home</a>
-	<a href="#" class="item">View Contacts</a>
-	<a href="#" class="item">Add Contacts</a>
-	<a href="#" class="item">Your Profile</a>
-	<a href="#" class="item">Settings</a>
-	<a th:href="@{logout}" class="item">Logout</a>
-	<div class="divider">
+		<button class="btn btn-light" id="sidebarToggle">☰</button>
+		<a href="#" class="item">Home</a>
+		<a href="#" class="item">View Contacts</a>
+		<a href="#" class="item">Add Contacts</a>
+		<a href="#" class="item">Your Profile</a>
+		<a href="#" class="item">Settings</a>
+		<a th:href="@{logout}" class="item">Logout</a>
+		<div class="divider">
 		
-	</div>
+		</div>
 	</div>
 	<!-- this is side bar content start-->
 	<div class="content">
 		
-		
+		<div th:replace="${content}"> </div>
 	</div>
-	<div th:replace="${content}"> </div>
-
+	
+	<!--end content area-->
 
 
 	<!-- Optional JavaScript; choose one of the two! -->

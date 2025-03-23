@@ -36,7 +36,20 @@
 
 /*side bar style*/
 
-@media only screen and (max-width:1000){}
+@media only screen and (max-width:768){
+	
+	.sidebar{
+		display: none;
+		width: 80% !important;
+		background:rgb(255, 255, 255);
+		padding-top:20px;
+		position: fixed;
+		height: 100vh;
+	}
+	.content{
+		margin-left: 0% !important;
+	}
+}
 
 .sidebar{
 	width: 18%;
@@ -59,6 +72,7 @@
 	background-color: #640D5F;
 	color: white;
 	text-decoration: none;
+	width: 100%;
 }
 .sidebar .divider{
 	background-color: #e2e2e2;
