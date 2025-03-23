@@ -7,10 +7,30 @@ function removeMessage() {
     }
 }
 document.addEventListener("DOMContentLoaded", function () {
-    let sidebar = document.querySelector(".sidebar");
-    let toggleBtn = document.querySelector("#sidebarToggle");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const sidebarClose = document.getElementById("sidebarClose");
 
-    toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("open");
+    // Sidebar Toggle Button (☰)
+    sidebarToggle.addEventListener("click", function () {
+        sidebar.classList.add("open");
+        document.body.classList.add("no-scroll"); 
+    });
+
+    // Sidebar Close Button (×)
+    sidebarClose.addEventListener("click", function () {
+        sidebar.classList.remove("open");
+        document.body.classList.remove("no-scroll");
+    });
+
+    // Click outside sidebar to close
+    document.addEventListener("click", function (event) {
+        if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove("open");
+            document.body.classList.remove("no-scroll");
+        }
     });
 });
+
+
+

@@ -1,95 +1,71 @@
-@charset "ISO-8859-1";
-
-/*body{
-	background-color:#FFEB55 !important;
-}*/
-*{
-	margin:0px;
-	padding:0px;
+* {
+    margin: 0;
+    padding: 0;
 }
-#navBar{
-	background-color: #640D5F !important;
+#navBar {
+    background-color: #640D5F !important;
 }
-
-.bg-primary{
-	
+.sidebar {
+    width: 250px;
+    background: rgb(255, 255, 255);
+    position: fixed;
+    left: -250px;
+    top: 0;
+    height: 100%;
+    padding-top: 60px;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 999;
 }
-.banner{
-	width:100%;
-	height: 120vh;
-	color:white;
-	background:linear-gradient(rgb(0,0,0,0.7),rgba(0,0,0,0.7)), url("../images/background.jpg"); 
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
+.sidebar a {
+    display: block;
+    padding: 15px;
+    color: #640D5F;
+    text-decoration: none;
+    text-transform: uppercase;
 }
-.footer{
-	background-color: #FFEB55;
+.sidebar a:hover {
+    background-color: #640D5F;
+    color: white;
 }
-
-.card--body{
-	color:#640D5F;
+.sidebar .divider {
+    background-color: #e2e2e2;
+    height: 1px;
+    margin: 10px 0;
 }
-.bg{
-	background-color: aliceblue;
+.sidebar.open {
+    left: 0;
 }
-
-/*side bar style*/
-
-@media only screen and (max-width:768){
-	
-	.sidebar{
-		display: none;
-		width: 80% !important;
-		background:rgb(255, 255, 255);
-		padding-top:20px;
-		position: fixed;
-		height: 100vh;
-	}
-	.content{
-		margin-left: 0% !important;
-	}
+.content {
+    margin-top: 60px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
 }
-
-.sidebar{
-	width: 18%;
-	background:rgb(255, 255, 255);
-	padding-top:45px;
-	position: fixed;
-	height: 100%;
+.sidebar.open + .content {
+    margin-left: 250px;
 }
-.sidebar a{
-	color: #640D5F;
-	padding: 10% 20%;
-	width:100%;
-	display: block;
-	text-decoration: none;
-	text-transform: uppercase;
-	cursor: pointer;
+.no-scroll {
+    overflow: hidden;
 }
-
-.sidebar a:hover{
-	background-color: #640D5F;
-	color: white;
-	text-decoration: none;
-	width: 100%;
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #640D5F;
 }
-.sidebar .divider{
-	background-color: #e2e2e2;
-	margin-top:10px;
-	width: 100%;
-	height: .5px;
-}
-
-.content{
-	margin-left:20%;
-}
-.banneradmin{
-	width:100%;
-	height: 120vh;
-	color:white;
-	background:linear-gradient(rgb(0,0,0,0.7),rgba(0,0,0,0.7)), url("../images/adminbg.jpg"); 
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80%;
+        left: -80%;
+    }
+    .sidebar.open {
+        left: 0;
+    }
+    .sidebar.open + .content {
+        margin-left: 0;
+    }
 }
