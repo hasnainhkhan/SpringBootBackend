@@ -117,8 +117,13 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 ## 📸 Screenshots
 
 (Include relevant UI screenshots here)
+![image](https://github.com/user-attachments/assets/d531c9fc-3eb6-435c-9c43-5f32b7eaf0f5)
+![image](https://github.com/user-attachments/assets/c2100918-cdfe-474d-930a-77586fc185cc)
 
----
+
+
+ ## E-R diaram
+![erdiagram](https://github.com/user-attachments/assets/5dbd4fa8-d4c4-4378-a59b-c44a3fecc6d8)
 
 ## 🤝 Contributing
 
