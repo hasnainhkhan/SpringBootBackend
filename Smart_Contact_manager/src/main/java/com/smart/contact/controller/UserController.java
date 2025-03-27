@@ -28,4 +28,5 @@ public class UserController {
 		model.addAttribute("title","User Dashboard");
 		return "normal/user_dashboard";
 	}
+	
 }

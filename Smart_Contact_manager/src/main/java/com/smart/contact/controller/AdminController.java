@@ -26,11 +26,14 @@ public class AdminController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	//index controller
 	@RequestMapping("/index")
 	public String dashboard(Model model) {
 		model.addAttribute("title", "Admin Index");
 		return "admin/index";
 	}
+	
+	//users list controller
 	@RequestMapping("/users")
 	public String usersInfo(Model model) {
 		
@@ -42,6 +45,7 @@ public class AdminController {
 		model.addAttribute("title","Users Information");
 		return "admin/users.html";
 	}
+	//userStatus enable and disable controller
 	@PostMapping("/users/toggleStatus")
 	public String toggleUserStatus(@RequestParam("id") Integer id) {
 	    UserEntity user = userRepository.findById(id)
@@ -72,6 +76,7 @@ public class AdminController {
 	    return "admin/users.html";
 	}
 	
+	//show update form controller
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Integer id, Model model) {
         UserEntity user = userRepository.findById(id)
@@ -79,6 +84,7 @@ public class AdminController {
         model.addAttribute("user", user);
         return "/admin/edit-user"; // Thymeleaf template
     }
+    //update controller
     @PostMapping("/update/{id}")
     public String updateUser(@Validated(OnUpdate.class) @PathVariable Integer id, @ModelAttribute UserEntity user) {
         user.setId(id); // Ensure the correct ID
