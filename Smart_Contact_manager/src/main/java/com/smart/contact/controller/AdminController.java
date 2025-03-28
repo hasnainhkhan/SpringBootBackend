@@ -118,6 +118,8 @@ public class AdminController {
 
         return "redirect:/admin/users"; // Redirect to user list after deletion
     }
+    
+    
 
 	
 

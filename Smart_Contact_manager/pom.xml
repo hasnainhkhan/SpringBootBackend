@@ -115,6 +115,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>Smart-contact-docker</finalName>
 	</build>
 
 	<repositories>
