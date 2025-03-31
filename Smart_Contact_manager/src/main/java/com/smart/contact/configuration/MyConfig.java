@@ -15,61 +15,70 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class MyConfig {
-	
-	private LoginRedirect loginRedirect;
-	
-	public MyConfig(LoginRedirect loginRedirect) {
-		this.loginRedirect = loginRedirect;
-	}
-	
+
+    private final LoginRedirect loginRedirect;
+
+    // Constructor Injection for LoginRedirect handler
+    public MyConfig(LoginRedirect loginRedirect) {
+        this.loginRedirect = loginRedirect;
+    }
+
+    // Password Encoder bean using BCryptPasswordEncoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // UserDetailsService bean to handle user authentication
     @Bean
     public UserDetailsService getUserDetailsService() {
-        return new UserDetailsServiceImpl(); // ✅ Ensure this class exists
+        return new UserDetailsServiceImpl(); // Ensure this class exists and implements UserDetailsService
     }
 
+    // DaoAuthenticationProvider to authenticate user details with password encoding
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(this.getUserDetailsService());
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        System.out.println("Password Encoder: " + passwordEncoder()); // Debugging, can be removed in production
         return daoAuthenticationProvider;
     }
 
+    // Security filter chain with HttpSecurity configurations
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/admin/delete/**") //  Allow delete requests
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/admin/delete/**") // Ignore CSRF for DELETE requests on specific routes
             )
-            .authorizeHttpRequests(auth -> auth
-				.requestMatchers("/admin/**").hasRole("ADMIN")
-						.requestMatchers(
-								"/user/**").hasRole("USER")
-                .requestMatchers("/", "/login", "/signup", "/register").permitAll()
-                .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
+            .authorizeRequests(auth -> auth
+                .requestMatchers("/", "/login", "/signup", "/register").permitAll() // Public routes
+                .requestMatchers("/static/**", "/static/css/bootstrap.css", "/images/**", "/css/**", "/js/**").permitAll() // Static resources
+                .requestMatchers("/admin/**").hasRole("ADMIN") // Protected Admin routes
+                .requestMatchers("/user/**").hasRole("USER") // Protected User routes
             )
-//            .authenticationProvider(null) for custom authentication use
             .formLogin(form -> form
                 .loginPage("/login")
-                .successHandler(loginRedirect) // ✅ Fixed redirect issue
-                .permitAll())
+                .successHandler(loginRedirect) // Redirect after successful login
+                .permitAll()
+            )
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true") // ✅ Logout redirect fixed
+                .logoutSuccessUrl("/login?logout=true") // Redirect after logout
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
-            )
-            .csrf(csrf -> csrf.disable()); // ✅ CSRF disabled (useful for REST APIs)
+            );
+
+        // Disable CSRF globally if you need to (use with caution)
+        // CSRF should only be disabled for certain cases, like for APIs or non-browser-based clients.
+        // csrf(csrf -> csrf.disable());
 
         return http.build();
     }
 
+    // AuthenticationManager bean configuration
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
