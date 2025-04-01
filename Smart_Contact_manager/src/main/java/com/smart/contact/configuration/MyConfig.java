@@ -15,13 +15,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class MyConfig {
-	
-	private LoginRedirect loginRedirect;
-	
-	public MyConfig(LoginRedirect loginRedirect) {
-		this.loginRedirect = loginRedirect;
-	}
-	
+
+    private final LoginRedirect loginRedirect;
+
+    public MyConfig(LoginRedirect loginRedirect) {
+        this.loginRedirect = loginRedirect;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -29,7 +29,7 @@ public class MyConfig {
 
     @Bean
     public UserDetailsService getUserDetailsService() {
-        return new UserDetailsServiceImpl(); // ✅ Ensure this class exists
+        return new UserDetailsServiceImpl(); // Ensure this class exists and implements UserDetailsService
     }
 
     @Bean
@@ -44,28 +44,26 @@ public class MyConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
         .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/admin/delete/**") //  Allow delete requests
+                .ignoringRequestMatchers("/admin/delete/**") // Allow delete requests without CSRF
             )
             .authorizeHttpRequests(auth -> auth
-				.requestMatchers("/admin/**").hasRole("ADMIN")
-						.requestMatchers(
-								"/user/**").hasRole("USER")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasRole("USER")
                 .requestMatchers("/", "/login", "/signup", "/register").permitAll()
-                .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**","/session","/sessiondata").permitAll() // ✅ Static resources allowed
+                .requestMatchers("/static/**", "/static/css/bootstrap.css", "/images/**", "/css/**", "/js/**").permitAll() // Static resources
             )
-//            .authenticationProvider(null) for custom authentication use
             .formLogin(form -> form
                 .loginPage("/login")
-                .successHandler(loginRedirect) // ✅ Fixed redirect issue
+                .successHandler(loginRedirect) // Custom login redirect handler
                 .permitAll())
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true") // ✅ Logout redirect fixed
+                .logoutSuccessUrl("/login?logout=true") // Redirect after logout
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
             )
-            .csrf(csrf -> csrf.disable()); // ✅ CSRF disabled (useful for REST APIs)
+            .csrf(csrf -> csrf.disable()); // Disable CSRF for REST APIs
 
         return http.build();
     }

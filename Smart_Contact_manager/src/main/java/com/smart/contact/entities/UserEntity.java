@@ -35,6 +35,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 public class UserEntity {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,8 +64,7 @@ public class UserEntity {
 	// another table
 	private List<ContactEntity> contacts = new ArrayList<>();
 
-
-
+	
     
  
     

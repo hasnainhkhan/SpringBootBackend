@@ -10,22 +10,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.smart.contact.dao.UserRepository;
 import com.smart.contact.entities.UserEntity;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@RequestMapping("/index")
-	public String dashboard(Model model , Principal principal) {
-		
+	public String dashboard(Model model, Principal principal) {
+
 		String userName = principal.getName();
-		
+
 		UserEntity user = userRepository.getUeserByUserName(userName);
-		
-		model.addAttribute("user",user);
-		model.addAttribute("title","User Dashboard");
+
+		model.addAttribute("user", user);
+		model.addAttribute("title", "User Dashboard");
+		/*
+		 * try { String sessionUserName = session.getAttribute("userName").toString();
+		 * model.addAttribute("userName", sessionUserName); } catch (Exception e) {
+		 * e.printStackTrace(); }
+		 */
 		return "normal/user_dashboard";
 	}
 }
