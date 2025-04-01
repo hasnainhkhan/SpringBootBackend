@@ -51,7 +51,7 @@ public class MyConfig {
 						.requestMatchers(
 								"/user/**").hasRole("USER")
                 .requestMatchers("/", "/login", "/signup", "/register").permitAll()
-                .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
+                .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**","/session","/sessiondata").permitAll() // ✅ Static resources allowed
             )
 //            .authenticationProvider(null) for custom authentication use
             .formLogin(form -> form
