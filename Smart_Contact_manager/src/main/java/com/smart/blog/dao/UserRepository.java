@@ -1,4 +1,4 @@
-package com.smart.contact.dao;
+package com.smart.blog.dao;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.smart.contact.entities.UserEntity;
+import com.smart.blog.entities.UserEntity;
 
 @Repository 
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{

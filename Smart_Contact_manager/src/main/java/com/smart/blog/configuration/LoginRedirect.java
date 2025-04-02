@@ -1,4 +1,4 @@
-package com.smart.contact.configuration;
+package com.smart.blog.configuration;
 
 import java.io.IOException;
 import java.util.Collection;

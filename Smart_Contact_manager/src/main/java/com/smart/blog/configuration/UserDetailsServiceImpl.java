@@ -1,0 +1,28 @@
+package com.smart.blog.configuration;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.smart.blog.dao.UserRepository;
+import com.smart.blog.entities.UserEntity;
+
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		UserEntity users = userRepository.getUeserByUserName(username);
+		if (users == null) {
+			throw new UsernameNotFoundException("Could not found this user");
+		}
+		CustomUserDetails customUserDetails = new CustomUserDetails(users);
+
+		return customUserDetails;
+	}
+
+}

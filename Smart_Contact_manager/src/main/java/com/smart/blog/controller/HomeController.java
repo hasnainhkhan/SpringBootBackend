@@ -1,4 +1,4 @@
-package com.smart.contact.controller;
+package com.smart.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.smart.contact.configuration.MsgConfig;
-import com.smart.contact.dao.UserRepository;
-import com.smart.contact.entities.UserEntity;
-import com.smart.contact.validation.OnCreate;
+
+import com.smart.blog.configuration.MsgConfig;
+import com.smart.blog.dao.UserRepository;
+import com.smart.blog.entities.UserEntity;
+import com.smart.blog.validation.OnCreate;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

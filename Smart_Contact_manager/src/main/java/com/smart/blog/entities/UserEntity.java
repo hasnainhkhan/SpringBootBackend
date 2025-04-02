@@ -1,4 +1,4 @@
-package com.smart.contact.entities;
+package com.smart.blog.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.smart.contact.validation.OnCreate;
+import com.smart.blog.validation.OnCreate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

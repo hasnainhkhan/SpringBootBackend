@@ -1,4 +1,4 @@
-package com.smart.contact.controller;
+package com.smart.blog.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.smart.contact.validation.*;
+
+import com.smart.blog.dao.UserRepository;
+import com.smart.blog.entities.UserEntity;
+import com.smart.blog.validation.*;
 
 import jakarta.transaction.Transactional;
-
-import com.smart.contact.dao.UserRepository;
-import com.smart.contact.entities.UserEntity;
 
 @Controller
 @Transactional

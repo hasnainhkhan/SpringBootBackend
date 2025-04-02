@@ -20,7 +20,7 @@
 <body>
 	<!-- nav bar started -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navBar">
-		<a class="navbar-brand" th:href="@{/user/index}">Smart Contact Manager</a>
+		<a class="navbar-brand" th:href="@{/user/index}">Smart Blog Manager</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
 			aria-expanded="true" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -51,8 +51,8 @@
 	<!-- this is side bar start-->
 	<div class="sidebar">
 	<a href="#" class="item">Home</a>
-	<a href="#" class="item">View Contacts</a>
-	<a href="#" class="item">Add Contacts</a>
+	<a href="#" class="item">Blogs</a>
+	<a th:href="@{/user/createblog}" class="item">Post Blog</a>
 	<a href="#" class="item">Your Profile</a>
 	<a href="#" class="item">Settings</a>
 	<a th:href="@{logout}" class="item">Logout</a>
@@ -93,7 +93,7 @@
 		<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
 		<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
 	</ul>
-	<p class="text-center text-muted">© 2025 Smart Contact Manager, Inc</p>
+	<p class="text-center text-muted">© 2025 Smart Blog Manager, Inc</p>
 </footer>
 
 </html>
