@@ -1,3 +1,4 @@
+
 package com.spring.boot.web;
 
 import org.junit.jupiter.api.Disabled;
@@ -12,3 +13,4 @@ class SmartContactManagerApplicationTests {
 	}
 
 }
+
