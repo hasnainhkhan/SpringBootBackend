@@ -18,16 +18,9 @@ public class MyConfig {
 
     private final LoginRedirect loginRedirect;
 
-    // Constructor Injection for LoginRedirect handler
-    public MyConfig(LoginRedirect loginRedirect) {
-        this.loginRedirect = loginRedirect;
-    }
 
-    // Password Encoder bean using BCryptPasswordEncoder
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
+
 
     // UserDetailsService bean to handle user authentication
     @Bean
@@ -49,34 +42,23 @@ public class MyConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/admin/delete/**") // Ignore CSRF for DELETE requests on specific routes
+
+        .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/admin/delete/**") // Allow delete requests without CSRF
             )
-            .authorizeRequests(auth -> auth
-                .requestMatchers("/", "/login", "/signup", "/register").permitAll() // Public routes
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasRole("USER")
+                .requestMatchers("/", "/login", "/signup", "/register").permitAll()
                 .requestMatchers("/static/**", "/static/css/bootstrap.css", "/images/**", "/css/**", "/js/**").permitAll() // Static resources
-                .requestMatchers("/admin/**").hasRole("ADMIN") // Protected Admin routes
-                .requestMatchers("/user/**").hasRole("USER") // Protected User routes
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .successHandler(loginRedirect) // Redirect after successful login
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true") // Redirect after logout
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .permitAll()
-            );
+                .successHandler(loginRedirect) // Custom login redirect handler
+                .permitAll())}
 
-        // Disable CSRF globally if you need to (use with caution)
-        // CSRF should only be disabled for certain cases, like for APIs or non-browser-based clients.
-        // csrf(csrf -> csrf.disable());
 
-        return http.build();
-    }
+
 
     // AuthenticationManager bean configuration
     @Bean

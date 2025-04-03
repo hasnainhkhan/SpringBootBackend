@@ -1,3 +1,4 @@
+
 package com.smart.contact.controller;
 
 import java.security.Principal;
@@ -30,3 +31,4 @@ public class UserController {
 	}
 	
 }
+
