@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="title">User Dashboard</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+	<section class="banner d-flex justify-content-center align-items-center">
+		<div class="text-center">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">S.No</th>
+						<th scope="col">ID</th>
+						<th scope="col">Blog Title</th>
+						<th scope="col">Blog Type</th>
+						<th scope="col">Blog Content</th>
+						<th scope="col">Image</th>
+						<th scope="col">Delete</th>
+						<th scope="col">Update</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="blog,iterStat : ${blogs}">
+						<td th:text="${iterStat.index + 1}"></td>
+						<td th:text="${blog.cId}"></td>
+						<td th:text="${blog.blogTitle}"></td>
+						<td th:text="${blog.blogType}"></td>
+						<td th:text="${blog.blogContent}"></td>
+						<td>
+							<img th:src="@{'/images/' + ${blog.cId}}" alt="Blog Image" width="100">
+						</td>
+						<!--togle button enable and disable-->
+						<td>
+
+						</td>
+						<td>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</section>
+</body>
+
+</html>

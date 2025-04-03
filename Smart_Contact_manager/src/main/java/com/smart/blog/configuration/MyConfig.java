@@ -42,15 +42,15 @@ public class MyConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-        .csrf(csrf -> csrf
+        http.
+        csrf(csrf -> csrf
                 .ignoringRequestMatchers("/admin/delete/**") //  Allow delete requests
             )
             .authorizeHttpRequests(auth -> auth
 				.requestMatchers("/admin/**").hasRole("ADMIN")
 						.requestMatchers(
 								"/user/**").hasRole("USER")
-                .requestMatchers("/", "/login", "/signup", "/register").permitAll()
+                .requestMatchers("/", "/login", "/signup", "/register","/blogs/**").permitAll()
                 .requestMatchers("/static/**", "/static/css/bootstrap.css","/images/**", "/css/**", "/js/**").permitAll() // ✅ Static resources allowed
             )
 //            .authenticationProvider(null) for custom authentication use
@@ -65,7 +65,8 @@ public class MyConfig {
                 .deleteCookies("JSESSIONID")
                 .permitAll()
             )
-            .csrf(csrf -> csrf.disable()); // ✅ CSRF disabled (useful for REST APIs)
+            .csrf(csrf -> csrf.disable())
+            ; // ✅ CSRF disabled (useful for REST APIs)
 
         return http.build();
     }

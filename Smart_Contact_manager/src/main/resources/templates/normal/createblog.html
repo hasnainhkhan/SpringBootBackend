@@ -21,33 +21,33 @@
 			<h2 class="text-center">Create New Blog Post</h2>
 
 			<!-- Blog Creation Form -->
-			<form th:action="@{/user/postblog}" method="POST" enctype="multipart/form-data">
+			<form th:action="@{/user/blogpost}" th:object="${contactEntity}" method="POST" enctype="multipart/form-data">
 
 				<!-- Blog Title Field -->
 				<div class="form-group mb-3">
 					<label for="blogTitle" class="form-label">Blog Title</label>
-					<input type="text" class="form-control" id="blogTitle" name="blogTitle"
+					<input type="text" class="form-control" id="blogTitle" name="blogTitle" th:field="${contactEntity.blogTitle}"
 						placeholder="Enter blog title" required>
 				</div>
 
 				<!-- Blog Type Field (Category) -->
 				<div class="form-group mb-3">
 					<label for="blogType" class="form-label">Blog Type</label>
-					<input type="text" class="form-control" id="blogType" name="blogType"
+					<input type="text" class="form-control" id="blogType" name="blogType" th:field="${contactEntity.blogType}"
 						placeholder="Enter blog category (e.g., Technology, Health)" required>
 				</div>
 
 				<!-- Blog Content Field -->
 				<div class="form-group mb-3">
 					<label for="blogContent" class="form-label">Blog Content</label>
-					<textarea class="form-control" id="blogContent" name="blogContent" rows="6"
+					<textarea class="form-control" id="blogContent" name="blogContents" th:field="${contactEntity.blogContent}" rows="6"
 						placeholder="Write your blog content here..." required></textarea>
 				</div>
 
 				<!-- Blog Image Upload -->
 				<div class="form-group mb-3">
 					<label for="image" class="form-label">Upload Blog Image</label>
-					<input type="file" class="form-control" id="image" name="imageFile">
+					<input type="file" class="form-control" id="image" name="image" accept="image/*">
 				</div>
 
 				<!-- Submit Button -->

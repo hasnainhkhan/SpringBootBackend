@@ -1,12 +1,17 @@
 package com.smart.blog.entities;
 
+
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "Blogs")
@@ -17,10 +22,16 @@ public class ContactEntity {
     private int cId;
     private String blogTitle;
     private String blogType;
-    private String image;
+    
+    @Lob  //  Store full image as a BLOB (Binary Large Object)
+    @Column(columnDefinition = "LONGBLOB")  // MySQL, PostgreSQL, or `BLOB` for H2
+    private byte[] image;
     @Column(length = 5000)
-    private String BlogContent;
-
+    private String blogContent;
+    
+    @Transient  // This prevents MultipartFile from being stored in the DB
+    private transient MultipartFile imageFile;
+    
     @ManyToOne
     private UserEntity userEntity;
 
@@ -55,23 +66,24 @@ public class ContactEntity {
 	}
 
 
-	public String getImage() {
+
+	public byte[] getImage() {
 		return image;
 	}
 
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
 
 	public String getBlogContent() {
-		return BlogContent;
+		return blogContent;
 	}
 
 
 	public void setBlogContent(String blogContent) {
-		BlogContent = blogContent;
+		this.blogContent = blogContent;
 	}
 
 
@@ -82,6 +94,15 @@ public class ContactEntity {
 
 	public void setUserEntity(UserEntity userEntity) {
 		this.userEntity = userEntity;
+	}
+
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+
+
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
 	}
 
 
