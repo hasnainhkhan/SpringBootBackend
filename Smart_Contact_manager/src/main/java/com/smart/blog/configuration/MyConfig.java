@@ -45,6 +45,7 @@ public class MyConfig {
         http.
         csrf(csrf -> csrf
                 .ignoringRequestMatchers("/admin/delete/**") //  Allow delete requests
+                .ignoringRequestMatchers("/user/blogs/delete/**") //  Allow delete requests
             )
             .authorizeHttpRequests(auth -> auth
 				.requestMatchers("/admin/**").hasRole("ADMIN")

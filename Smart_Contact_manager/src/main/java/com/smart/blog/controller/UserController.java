@@ -80,7 +80,7 @@ public class UserController {
 		contactRepository.save(contactEntity);
 		model.addAttribute("message", "Blog saved successfully!");
 
-		return "home";
+		return "normal/blogslist";
 	}
 
 	@RequestMapping("/blogslist")
