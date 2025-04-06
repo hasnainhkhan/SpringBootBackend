@@ -57,7 +57,7 @@ public class HomeController {
 			HttpSession session) {
 
 		try {
-			// 🚀 1. Check if user accepted Terms & Conditions
+			// 1. Check if user accepted Terms & Conditions
 			if (!agrement) {
 				session.setAttribute("message",
 						new MsgConfig("You must accept the Terms & Conditions!", "alert-danger"));
