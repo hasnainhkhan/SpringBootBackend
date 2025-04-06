@@ -143,5 +143,12 @@ public class UserController {
 		contactRepository.delete(existingUser);
 		return "blogslist";
 	}
+	
+	@GetMapping("/blogs/{}")
+	public String deletebyName(@PathVariable String name) {
+		List<ContactEntity> byBlogTitle = contactRepository.findByBlogTitle(name);
+		return contactRepository.delete(byBlogTitle);
+	}
+
 
 }

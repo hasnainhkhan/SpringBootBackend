@@ -12,4 +12,6 @@ public interface ContactRepository extends JpaRepository<ContactEntity, Integer>
 
 	@Query("SELECT c FROM ContactEntity c WHERE LOWER(c.blogTitle) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<ContactEntity> searchByTitle(@Param("keyword") String keyword);
+	List<ContactEntity> findByBlogTitle(String blogTitle);
+	String delete(List<ContactEntity> byBlogTitle);
 }
