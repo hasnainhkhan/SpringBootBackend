@@ -19,3 +19,9 @@ File Storage: Local file system or cloud storage (like AWS S3 if applicable)</p>
 <list>Project</list>
 <a></a>
 <khan>Spring BOot</khan>
+## ✍️ Author
+
+**Hasnain Haidar**  
+hhk2170@gmail.com  
+Fullstack Developer  
+Spring Boot, Data JPA, MySQL, Python, Java, etc
