@@ -14,6 +14,7 @@ Project 1: File Upload with CRUD Operations</p>
 <p>Backend: Spring Boot, Spring Web, Spring Data JPA
 Database: H2 Database (for development) or MySQL/PostgreSQL (for production)
 Frontend: Thymeleaf (for rendering file list and file upload form)
+  ;;;;;
 File Storage: Local file system or cloud storage (like AWS S3 if applicable)</p>
 
 <list>Project</list>
